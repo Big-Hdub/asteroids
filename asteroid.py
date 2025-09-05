@@ -1,6 +1,7 @@
 import pygame
 import random
 from circleshape import CircleShape
+from constants import ASTEROID_MIN_RADIUS
 
 
 class Asteroid(CircleShape):
@@ -14,9 +15,10 @@ class Asteroid(CircleShape):
         self.position += self.velocity * dt
 
     def break_up(self):
-        if self.radius > 15:
-            for _ in range(2):
+        if self.radius > 20:
+            for i in range(2):
                 from asteroidfield import AsteroidField
-                velocity = self.velocity.rotate(random.uniform(-30, 30)) * random.uniform(0.5, 1.5)
-                AsteroidField.spawn(self, self.radius / 3, self.position, velocity)
+                velocity = self.velocity.rotate(-30) if i == 0 else self.velocity.rotate(30)
+                velocity *= random.uniform(0.5, 1.5)
+                AsteroidField.spawn(self, self.radius - ASTEROID_MIN_RADIUS, self.position, velocity)
         self.kill()
