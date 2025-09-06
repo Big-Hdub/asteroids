@@ -13,7 +13,7 @@ class Bullet(CircleShape):
         # Calculate the end position for the line
         direction = self.velocity.normalize() if self.velocity.length() != 0 else pygame.Vector2(1, 0)
         end_pos = self.position + direction * self.radius * 2  # Length of the line
-        pygame.draw.line(screen, "red", self.position, end_pos, width=2)
+        pygame.draw.line(screen, "red", self.position, end_pos, width=4)
 
     def update(self, dt):
         self.position += self.velocity * dt
