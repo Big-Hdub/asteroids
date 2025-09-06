@@ -25,12 +25,7 @@ def main():
 
     Asteroid.containers = (asteroids, updatable, drawable)
     AsteroidField.containers = updatable
-    asteroid_field = AsteroidField()
-
     Player.containers = (updatable, drawable, bullets)
-
-    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
-
     Bullet.containers = (updatable, drawable, bullets)
 
     dt = 0
@@ -53,6 +48,8 @@ def main():
             from menu import show_menu
             choice = show_menu(screen)
             if choice == "Start Game":
+                asteroid_field = AsteroidField()
+                player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
                 game_state = "PLAYING"
             elif choice == "Leaderboard":
                 from leaderboard import load_leaderboard, display_leaderboard
@@ -74,7 +71,7 @@ def main():
             for asteroid in asteroids:
                 if asteroid.is_colliding(player):
                     game_state = "GAME OVER"
-                    for obj in drawable:
+                    for obj in updatable:
                         obj.kill()
                     break
             for bullet in bullets:
